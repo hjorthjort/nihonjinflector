@@ -1,4 +1,4 @@
-# Nihonjinflect (日本ジングレクツ)
+# Nihonjinflector (日本ジンフレクトル)
 
 Inflection practice tools for Japanese verbs.
 
