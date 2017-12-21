@@ -2,6 +2,23 @@ module Inflection where
 
 import Verb
 
-data Inflection = Te | Nai
+data Kei = TeKei | NaiKei | UKei
 
-data Inflected = Inflected Verb Inflection
+instance Show Kei where
+    show TeKei = "て"
+    show NaiKei = "ない"
+    show UKei = "う"
+
+data Inflected = Inflected Verb Kei
+
+instance Show Inflected where
+    show (Inflected verb kei) = inflect verb kei
+
+inflect :: Verb -> Kei -> String
+-- TODO: Make this function exhaustive
+-- Godan.
+inflect (Godan stem) UKei = show stem  ++ show kei
+-- Ichidian.
+inflect (Ichidian stem) UKei = show stem ++ "よ" ++ show U
+inflect (Ichidian stem) kei = show stem  ++ show kei
+
