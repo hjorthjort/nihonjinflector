@@ -32,6 +32,7 @@ instance Show Verb where
 
 -- Show functions.
 
+-- TODO: Make a hiragana table to be used with inflections.
 hiragana_romanji_map = Map.fromList
   [(U, "う"), (Tsu, "つ"), (Ru, "る"), (Bu, "ぶ"), (Mu, "む"), (Nu, "ぬ"),
   (Ku, "く"), (Gu, "ぐ"), (Su, "す")]
