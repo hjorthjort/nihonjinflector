@@ -1,22 +1,24 @@
 module Hiragana (hiragana_get) where
 
-import qualified Data.Map as Map
-import Data.List (transpose, intersect)
+import Data.List
+import Data.Maybe
+import Test.QuickCheck
+import Test.QuickCheck.Gen
 
-a_line = ["あ", "い", "う", "え", "お"]
-k_line = ["か", "き", "く", "け", "こ"]
-g_line = ["が", "ぎ", "ぐ", "げ", "ご"]
-s_line = ["さ", "し", "す", "せ", "そ"]
-z_line = ["ざ", "じ", "ず", "ぜ", "ぞ"]
-t_line = ["た", "ち", "つ", "て", "と"]
-d_line = ["だ", "ぢ", "づ", "で", "ど"]
-n_line = ["な", "に", "ぬ", "ね", "の"]
-h_line = ["は", "ひ", "ふ", "へ", "ほ"]
-b_line = ["ば", "び", "ぶ", "べ", "ぼ"]
-m_line = ["ま", "み", "む", "め", "も"]
-r_line = ["ら", "り", "る", "れ", "ろ"]
+a_line = ["あ", "う", "お", "い", "え"]
+k_line = ["か", "く", "こ", "き", "け"]
+g_line = ["が", "ぐ", "ご", "ぎ", "げ"]
+s_line = ["さ", "す", "そ", "し", "せ"]
+z_line = ["ざ", "ず", "ぞ", "じ", "ぜ"]
+t_line = ["た", "つ", "と", "ち", "て"]
+d_line = ["だ", "づ", "ど", "ぢ", "で"]
+n_line = ["な", "ぬ", "の", "に", "ね"]
+h_line = ["は", "ふ", "ほ", "ひ", "へ"]
+b_line = ["ば", "ぶ", "ぼ", "び", "べ"]
+m_line = ["ま", "む", "も", "み", "め"]
+r_line = ["ら", "る", "ろ", "り", "れ"]
 y_line = ["や", "ゆ", "よ"]
-w_line = ["わ", "を", "ん"]
+w_line = ["わ", "ん", "を"]
 
 hiragana_matrix = [
                     a_line,
@@ -35,13 +37,22 @@ hiragana_matrix = [
                     w_line
                   ]
 
-
-hiragana_matrix_lines = zip (transpose hiragana_matrix !! 0) hiragana_matrix
-hiragana_matrix_cols = zip a_line (transpose hiragana_matrix)
-
+-- | Find the hiragana at an intersection of a line (representing a single
+-- | consonant) and a column (representing a single vowel).
 hiragana_get :: String -> String -> Maybe String
-hiragana_get line col = do
-    line_list <- lookup line hiragana_matrix_lines
-    col_list <- lookup col hiragana_matrix_cols
+hiragana_get consonant vowel = do
+    line_list <- find (elem consonant) hiragana_matrix
+    col_list <- find (elem vowel) (transpose hiragana_matrix)
     let hiragana = intersect line_list col_list
     if null hiragana then Nothing else return (hiragana !! 0)
+
+-- Tests.
+
+-- The square part of the hiragana matrix should always give a value.
+hiragana = elements $ concat $ take 12 hiragana_matrix
+hiragana_tup = do
+    h1 <- hiragana
+    h2 <- hiragana
+    return (h1, h2)
+
+prop_always_finds = forAll hiragana_tup $ (\(h1, h2) -> isJust (hiragana_get h1 h2))
