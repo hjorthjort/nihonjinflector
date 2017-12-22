@@ -17,7 +17,7 @@ instance Show Inflected where
 inflect :: Verb -> Kei -> String
 -- TODO: Make this function exhaustive
 -- Godan.
-inflect (Godan stem) UKei = show stem  ++ show kei
+inflect (Godan stem end) UKei = show stem  ++ show UKei
 -- Ichidian.
 inflect (Ichidian stem) UKei = show stem ++ "よ" ++ show U
 inflect (Ichidian stem) kei = show stem  ++ show kei
