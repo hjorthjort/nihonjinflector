@@ -1,29 +1,14 @@
-module Inflection where
+module GrammarRules() where
 
-import Verb
-import Hiragana
+-- Ending of the jisho-kei for verbs.
+data Ending = U | Tsu | Ru | Bu | Mu | Nu | Ku | Gu | Su deriving (Eq, Ord, Enum)
 
-import Data.Maybe
+instance Show Ending where
+    show ending = fromJust $ Map.lookup ending ending_map
 
--- | Alternate name for the forms are:
--- | Jisho: Dictionary form
--- | Nenyou: Masu form
--- | Mizen: Nai form
--- | Meirei: Ba form
--- | Suiryou: U form
-data Kei = Jisho | Nenyou | Meirei | Mizen | Suiryou | Te
-
-data Inflected = Inflected Verb Kei
-
-instance Show Inflected where
-    show (Inflected verb kei) = inflect verb kei
-
-inflect :: Verb -> Kei -> String
--- Godan.
-inflect (Godan stem end) kei = show stem ++ godan_ending_get end kei
--- Ichidian.
-inflect (Ichidian stem) Suiryou = show stem ++ "よ" ++ show U
-inflect (Ichidian stem) kei = show stem
+ending_map = Map.fromList 
+  [(U, "う"), (Tsu, "つ"), (Ru, "る"), (Bu, "ぶ"), (Mu, "む"), (Nu, "ぬ"),
+  (Ku, "く"), (Gu, "ぐ"), (Su, "す")]
 
 godan_ending_get ending Jisho   = show ending
 godan_ending_get ending Nenyou  = fromJust $ hiragana_get (show ending) "い"

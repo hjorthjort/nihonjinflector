@@ -1,7 +1,8 @@
 module Verb where
 
+import Hiragana
+
 import Data.Maybe
-import qualified Data.Map as Map
 
 type KanaStem = String
 type KanjiStem = String
@@ -11,12 +12,6 @@ data Stem = Stem KanaStem (Maybe KanjiStem)
 
 instance Show Stem where
     show (Stem kana kanji) = fromMaybe kana kanji
-
--- Ending of the dictionary form of Godan verbs.
-data Ending = U | Tsu | Ru | Bu | Mu | Nu | Ku | Gu | Su deriving (Eq, Ord)
-
-instance Show Ending where
-    show ending = fromJust $ Map.lookup ending hiragana_romanji_map
 
 data IrregularType = Kuru | Suru | Iku 
 
@@ -31,11 +26,6 @@ instance Show Verb where
     show = show_verb
 
 -- Show functions.
-
--- TODO: Make a hiragana table to be used with inflections.
-hiragana_romanji_map = Map.fromList
-  [(U, "う"), (Tsu, "つ"), (Ru, "る"), (Bu, "ぶ"), (Mu, "む"), (Nu, "ぬ"),
-  (Ku, "く"), (Gu, "ぐ"), (Su, "す")]
 
 show_verb (Godan stem ending) = show stem ++ show ending
 show_verb (Ichidian stem) = show stem ++ "る"
