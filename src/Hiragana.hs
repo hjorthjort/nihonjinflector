@@ -1,16 +1,11 @@
-module Hiragana (Ending(..), hiragana_get) where
+module Hiragana (HiraganaCharacter, hiragana_get) where
 
 import Data.List
-import qualified Data.Map as Map
 import Data.Maybe
 import Test.QuickCheck
 import Test.QuickCheck.Gen
 
--- Ending of the jisho-kei for verbs.
-data Ending = U | Tsu | Ru | Bu | Mu | Nu | Ku | Gu | Su deriving (Eq, Ord, Enum)
-
-instance Show Ending where
-    show ending = fromJust $ Map.lookup ending ending_map
+type HiraganaCharacter = String
 
 a_line = ["あ", "う", "お", "い", "え"]
 k_line = ["か", "く", "こ", "き", "け"]
@@ -43,10 +38,6 @@ hiragana_matrix = [
                     y_line,
                     w_line
                   ]
-
-ending_map = Map.fromList 
-  [(U, "う"), (Tsu, "つ"), (Ru, "る"), (Bu, "ぶ"), (Mu, "む"), (Nu, "ぬ"),
-  (Ku, "く"), (Gu, "ぐ"), (Su, "す")]
 
 -- | Find the hiragana at an intersection of a line (representing a single
 -- | consonant) and a column (representing a single vowel).
