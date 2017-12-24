@@ -70,13 +70,18 @@ exception verb kei = Map.lookup (verb, kei) exceptions_table
 
 exceptions_table = Map.fromList
     [
-    -- TODO: Enter all inflections of Kuru and Suru.
         ((kuru, Jisho), Writing "くる" (Just "来る")),
         ((kuru, Nenyou), Writing "き" (Just "来")),
         ((kuru, Meirei), Writing "こられ" (Just "来られ")),
         ((kuru, Mizen), Writing "こ" (Just "来")),
         ((kuru, Suiryou), Writing "こよ" (Just "来よ")),
         ((kuru, Te), Writing "き" (Just "来")),
+        ((suru, Jisho), Writing "する" Nothing),
+        ((suru, Nenyou), Writing "し" Nothing),
+        ((suru, Meirei), Writing "すれ" Nothing),
+        ((suru, Mizen), Writing "し" Nothing),
+        ((suru, Suiryou), Writing "しよ" Nothing),
+        ((suru, Te), Writing "し" Nothing),
         ((iku, Te), Writing "いって" (Just "行って"))
     ]
 
