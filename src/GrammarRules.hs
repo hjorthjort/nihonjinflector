@@ -72,11 +72,11 @@ exceptions_table = Map.fromList
     [
     -- TODO: Enter all inflections of Kuru and Suru.
         ((kuru, Jisho), Writing "くる" (Just "来る")),
-        ((kuru, Nenyou), Writing "くる" (Just "来る")),
-        ((kuru, Meirei), Writing "くる" (Just "来る")),
-        ((kuru, Mizen), Writing "くる" (Just "来る")),
-        ((kuru, Suiryou), Writing "くる" (Just "来る")),
-        ((kuru, Te), Writing "くる" (Just "来る")),
+        ((kuru, Nenyou), Writing "き" (Just "来")),
+        ((kuru, Meirei), Writing "こられ" (Just "来られ")),
+        ((kuru, Mizen), Writing "こ" (Just "来")),
+        ((kuru, Suiryou), Writing "こよ" (Just "来よ")),
+        ((kuru, Te), Writing "き" (Just "来")),
         ((iku, Te), Writing "いって" (Just "行って"))
     ]
 
