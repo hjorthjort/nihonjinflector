@@ -84,6 +84,7 @@ inflect :: Verb -> Kei -> Writing
 inflect verb kei = fromMaybe (inflect' verb kei) (exception verb kei)
 
 inflect' (Godan stem end) kei = stem !++ godan_ending_get end kei
+inflect' (Ichidian stem) Jisho = stem !++ "る"
 inflect' (Ichidian stem) Suiryou = stem !++ "よ"
 inflect' (Ichidian stem) _ = stem
 inflect' (Irregular stem irr_type) kei =
